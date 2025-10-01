@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <script src="cart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .cart-item {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .btn {
+      margin-top: 20px;
+      background-color: #ff4081;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Cart 🛒</h1>
+  <div id="cart-items"></div>
+  <div class="total" id="cart-total"></div>
+  <button class="btn" onclick="clearCart()">Clear Cart</button>
+  <a href="product.html">
+    <b>GO BACK</b>
+  </a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // We now have a database connection, so let's display the cart
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalElement = document.getElementById('cart-total');
+
+        if (!db) {
+            openDatabase().then(displayCartItems);
+        } else {
+            displayCartItems();
+        }
+
+        function displayCartItems() {
+            const transaction = db.transaction([CART_STORE], 'readonly');
+            const store = transaction.objectStore(CART_STORE);
+            const cursorRequest = store.openCursor();
+            let total = 0;
+            let itemIndex = 1;
+            let hasItems = false;
+            
+            cartItemsContainer.innerHTML = ''; // Clear items before re-drawing
+
+            cursorRequest.onsuccess = event => {
+                const cursor = event.target.result;
+                if (cursor) {
+                    hasItems = true;
+                    const item = cursor.value;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = "cart-item";
+                    itemDiv.innerHTML = `${itemIndex}. ${item.name} - ₦${item.price.toLocaleString()}`;
+                    cartItemsContainer.appendChild(itemDiv);
+                    total += item.price;
+                    itemIndex++;
+                    cursor.continue();
+                } else {
+                    if (!hasItems) {
+                        cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+                    }
+                    totalElement.textContent = `Total: ₦${total.toLocaleString()}`;
+                }
+            };
+        }
+    });
+  </script>
+</body>
+</html>

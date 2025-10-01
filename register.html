@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="cart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            background-color: #444;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="email"],
+        input[type="tel"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #ff1a66;
+        }
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MILLYSAINTESSENCE</h1>
+    </header>
+    <nav>
+        <a href="Index.html">Home</a>
+        <a href="product.html">Products</a>
+        <a href="cart.html">Cart <span class="cart-count" id="cart-count">0</span></a>
+        <a href="register.html">Register</a>
+    </nav>
+
+    <div class="container">
+        <h2>Customer Registration</h2>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2025 MillySaintEssence. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registrationForm');
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+
+                if (!db) {
+                    alert('Database is not ready. Please try again.');
+                    return;
+                }
+
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+
+                const userData = {
+                    email: email,
+                    phone: phone,
+                    address: address
+                };
+
+                const transaction = db.transaction([USERS_STORE], 'readwrite');
+                const store = transaction.objectStore(USERS_STORE);
+                const request = store.put(userData);
+
+                request.onsuccess = () => {
+                    alert('Registration successful! Your data has been saved locally.');
+                    form.reset();
+                };
+
+                request.onerror = event => {
+                    console.error('Error saving user data:', event.target.error);
+                    alert('Registration failed. Please try again.');
+                };
+            });
+        });
+    </script>
+</body>
+</html>

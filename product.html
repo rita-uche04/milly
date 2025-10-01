@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <script src="cart.js"></script>
+    <style>
+      body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #222;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+            background-color: #444;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .category {
+            margin: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .category h2 {
+            text-align: center;
+            color: #ff4081;
+            border-bottom: 2px solid #ff4081;
+            padding-bottom: 10px;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 200px; /* Adjusted size for smaller product cards */
+            margin: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #ff4081;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .out-of-stock {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+        }
+
+        /* Responsive Design using Media Queries */
+        @media (max-width: 768px) {
+            /* Adjustments for tablets and smaller screens */
+            .products {
+                flex-direction: column;
+                align-items: center;
+            }
+            .product {
+                width: 80%; /* Takes up more width on smaller screens */
+            }
+        }
+        @media (max-width: 480px) {
+            /* Adjustments for mobile phones */
+            .product {
+                width: 95%; /* Almost full width on a small phone screen */
+            }
+            .btn {
+                width: 100%; /* Full-width buttons on mobile */
+            }
+        }  
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MILLYSAINTESSENCE</h1>
+    </header>
+    <nav>
+        <a href="Index.html">Home</a>
+        <a href="product.html">Products</a>
+        <a href="cart.html">Cart <span class="cart-count" id="cart-count">0</span></a>
+        <a href="register.html">Register</a>
+    </nav>
+    <section class="category">
+        <h2>Body Wash & Lotions</h2>
+        <div class="products">
+            <div class="product">
+                <img src="eos-sensitive-skin.jpg" alt="Product 1">
+                <h3>EOS Shea Better Sensitive Cream</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button>
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="vaseline cocoa shimmer .jpg" alt="Product 1">
+                <h3>Body shimmer</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+            <div class="product">
+                <img src="Aveeno.jpg" alt="Product 2">
+                <h3>Aveeno</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="Vaseline Pro.avif" alt="Product 3">
+                <h3>Vaseline Pro VitaB3</h3>
+                <p>₦24,000</p>
+                <p>In Stock: <span id="stock-3">5</span></p>
+                <button class="btn" id="btn-3" onclick="checkStock('Vaseline Pro VitaB3', 24000, 'stock-3', 'btn-3')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="eos lotion.jpg" alt="Product 4">
+                <h3>eos Vanilla Cashmere Body Wash & Lotion Duo</h3>
+                <p>Body Wash-₦27,000</p>
+                <p>In Stock: <span id="stock-4-wash">20</span></p>
+                <button class="btn" id="btn-4-wash" onclick="checkStock('eos Vanilla Cashmere Body Wash', 27000, 'stock-4-wash', 'btn-4-wash')">Add to Cart</button>
+                <p>Body Lotion-₦25,000</p>
+                <p>In Stock: <span id="stock-4-lotion">12</span></p>
+                <button class="btn" id="btn-4-lotion" onclick="checkStock('eos Vanilla Cashmere Body Lotion', 25000, 'stock-4-lotion', 'btn-4-lotion')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="tree hut.jpg" alt="Product 5">
+                <h3>Tropic glow</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="shantal haze.jpg" alt="Product 6">
+                <h3>Santal Haze</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="Palm Grove.jpg" alt="Product 7">
+                <h3>Palm Grove</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="Dragon Fruit.jpg" alt="Product 8">
+                <h3>Dragon Fruit</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="Cinnamon Dolce.jpg" alt="Product 9">
+                <h3>Cinnamon Dolce</h3>
+                <h3>Sugar Scrub</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="Pumpkin .jpg" alt="Product 10">
+                <h3>Pumpkin Spice Latte</h3>
+                <h3>Sugar Scrub</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="eos shave cream.jpg" alt="Product 11">
+                <h3>eos shave cream</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="eos shave cream 2.jpg" alt="Product 12">
+                <h3>eos shave cream</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="saltair.jpg" alt="Product 13">
+                <h3>Saltair Body Wash</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="saltair 2.jpg" alt="Product 14">
+                <h3>Saltair Body Wash</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="naturium.jpg" alt="Product 15">
+                <h3>Naturium Body Wash</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="naturium 2.jpg" alt="Product 16">
+                <h3>Naturium Body Wash</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="naturium lotion.jpg" alt="Product 17">
+                <h3>Naturium Lotion</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="olay.jpg" alt="Product 18">
+                <h3>Olay Body Lotion</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="olay retinol.jpg" alt="Product 19">
+                <h3>Olay Body Lotion</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="olay body was.jpg" alt="Product 20">
+                <h3>Olay Body Wash</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="olay body wash 2.jpg" alt="Product 21">
+                <h3>Olay Body Wash</h3>
+                <p>₦24,500</p>
+                <p>In Stock: <span id="stock-2">15</span></p>
+                <button class="btn" id="btn-2" onclick="checkStock('Aveeno', 24500, 'stock-2', 'btn-2')">Add to Cart</button>
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="native body lotion.jpg" alt="Product 1">
+                <h3>Native Body Lotion</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="native body wash.jpg" alt="Product 1">
+                <h3>Native Body Wash</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="byoma lotion.jpg" alt="Product 1">
+                <h3>Byoma Body Lotion</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="byoma wash.jpg" alt="Product 1">
+                <h3>Byoma Body Wash</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+        </div>
+    </section>
+
+    <section class="category">
+        <h2>Body Set</h2>
+        <div class="products">
+            <div class="products">
+            <div class="product">
+                <img src="body set.jpg" alt="Product 1">
+                <h3>Jet Set</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    <section class="category">
+        <h2>Perfumes & Body Mist</h2>
+<div class="products">
+            <div class="product">
+                <img src="sol de janero.jpg" alt="Product 1">
+                <h3>Sol de janero</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    <section class="category">
+        <h2>Face Essentials</h2>
+        <div class="products">
+            <div class="product">
+               <img src="olay wash pad.jpg" alt="Product 1">
+                <h3>Olay Facial Cleanser</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="medicube facemask.jpg" alt="Product 1">
+                <h3>Medicube Face Mask</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+            <div class="products">
+            <div class="product">
+               <img src="medicube.jpg" alt="Product 1">
+                <h3>Medicube Face Cream</h3>
+                <p>₦16,000</p>
+                <p>In Stock: <span id="stock-1">10</span></p>
+                <button class="btn" id="btn-1" onclick="checkStock('EOS Shea Better Sensitive Cream', 16000, 'stock-1', 'btn-1')">Add to Cart</button> 
+            </div>
+        </div>
+    </section>
+     <section class="category">
+        <h2>Sunscreen</h2>
+        <div class="products">
+            <div class="product">
+                <h3>Coming Soon...</h3>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function checkStock(name, price, stockId, buttonId) {
+            let stockElement = document.getElementById(stockId);
+            let currentStock = parseInt(stockElement.textContent);
+            let buttonElement = document.getElementById(buttonId);
+
+            if (currentStock > 0) {
+                stockElement.textContent = currentStock - 1;
+                addToCart(name, price);
+            } else {
+                buttonElement.textContent = 'Sold Out';
+                buttonElement.disabled = true;
+                buttonElement.classList.add('out-of-stock');
+            }
+        }
+    </script>
+</body>
+</html>
